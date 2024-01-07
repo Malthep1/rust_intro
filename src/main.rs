@@ -4,11 +4,8 @@ use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
-
-    let _random_number = rand::thread_rng().gen_range(1..=100);
-
-    println!("The random number is {_random_number}");
-
+    let _random_number = rand::thread_rng().gen_range(1..=100); // Generate random using rand crate
+                                                                
     loop {
         println!("Please input your guess.");
 
@@ -29,7 +26,7 @@ fn read_number_from_stdin() -> u32 {
 
     io::stdin()
         .read_line(&mut number)
-        .expect("Failed to read line");
+        .expect("Failed to read line"); // If read_line fails program will panic with this message
 
     println!("Number input: {number}");
 
@@ -37,7 +34,7 @@ fn read_number_from_stdin() -> u32 {
         Ok(num) => num,
         Err(_) => {
             println!("Input was not a valid number, please input a new number");
-            read_number_from_stdin()
+            read_number_from_stdin() // Recursively retry on invalid input
         },
     };
 
