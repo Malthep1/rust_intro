@@ -1,7 +1,13 @@
 use std::io;
+use std::cmp::Ordering;
+use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
+
+    let _random_number = rand::thread_rng().gen_range(1..=100);
+
+    println!("The random number is {_random_number}");
 
     println!("Please input your guess.");
 
@@ -11,5 +17,19 @@ fn main() {
         .read_line(&mut guess)
         .expect("Failed to read line");
 
-    println!("You guessed: {guess}");
+    let guess: u32 = guess.trim().parse().expect("Input a number instead!");
+
+    loop {
+
+        println!("You guessed: {guess}");
+        match guess.cmp(&_random_number) {
+            Ordering::Less => println!("Too low!"),
+            Ordering::Greater => println!("Too high!"), 
+            Ordering::Equal => {
+                println!("Correct, you win!");
+                break;
+            } 
+        }
+
+    }
 }
