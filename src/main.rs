@@ -9,20 +9,12 @@ fn main() {
 
     println!("The random number is {_random_number}");
 
-    println!("Please input your guess.");
 
-    let mut guess = String::new();
-
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line");
-
-    let guess: u32 = guess.trim().parse().expect("Input a number instead!");
 
     loop {
+        println!("Please input your guess.");
 
-        println!("You guessed: {guess}");
-        match guess.cmp(&_random_number) {
+        match read_number_from_stdin().cmp(&_random_number) {
             Ordering::Less => println!("Too low!"),
             Ordering::Greater => println!("Too high!"), 
             Ordering::Equal => {
@@ -30,6 +22,20 @@ fn main() {
                 break;
             } 
         }
-
     }
+}
+
+fn read_number_from_stdin() -> u32 {
+
+    let mut number = String::new();
+
+    io::stdin()
+        .read_line(&mut number)
+        .expect("Failed to read line");
+
+    println!("Number input: {number}");
+
+    let number: u32 = number.trim().parse().expect("Input a number instead!");
+
+    return number;
 }
