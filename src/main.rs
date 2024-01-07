@@ -9,8 +9,6 @@ fn main() {
 
     println!("The random number is {_random_number}");
 
-
-
     loop {
         println!("Please input your guess.");
 
@@ -35,7 +33,13 @@ fn read_number_from_stdin() -> u32 {
 
     println!("Number input: {number}");
 
-    let number: u32 = number.trim().parse().expect("Input a number instead!");
+    let number: u32 = match number.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Input was not a valid number, please input a new number");
+            read_number_from_stdin()
+        },
+    };
 
     return number;
 }
